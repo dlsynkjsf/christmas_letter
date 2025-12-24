@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Hanna Only</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* DESKTOP SETTINGS (Made larger to prevent scrolling) */
+            --card-width: 450px;  /* Increased from 380px */
+            --card-height: 620px; /* Increased from 580px */
+            --card-color: #fdfaf5;
+            --red: #8e0e00;
+            --gold: #d4af37;
+            --bg-color: #101015;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at center, #1f2a36 0%, #000000 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            perspective: 1500px;
+        }
+
+        /* --- Snow --- */
+        .snow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- Wrapper --- */
+        .card-wrapper {
+            position: relative;
+            width: var(--card-width);
+            height: var(--card-height);
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.6s ease;
+        }
+
+        @media (hover: hover) {
+            .card-wrapper:hover {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* --- Card System --- */
+        .card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- OPEN STATE --- */
+        .card-wrapper.open .card {
+            transform: translateX(50%);
+        }
+
+        .card-wrapper.open .front-flap {
+            transform: rotateY(-180deg);
+        }
+
+        /* --- Components --- */
+        .front-flap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
+
+        /* --- FRONT COVER DESIGN --- */
+        .front-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: var(--red);
+            background: linear-gradient(135deg, #8e0e00 0%, #c0392b 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px 12px 12px 5px;
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+        /* The Gold Border Frame */
+        .fancy-border {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px solid var(--gold);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+        .fancy-border::after, .fancy-border::before {
+            content: "❄";
+            position: absolute;
+            color: var(--gold);
+            font-size: 20px;
+        }
+        .fancy-border::before { top: -12px; left: -6px; }
+        .fancy-border::after { bottom: -12px; right: -6px; transform: rotate(180deg); }
+
+        /* The Hanging Ornament */
+        .ornament-string {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 120px;
+            background: var(--gold);
+            transform: translateX(-50%);
+        }
+
+        .ornament-ball {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: swing 3s infinite ease-in-out;
+            transform-origin: top center; 
+            margin-top: -10px; 
+        }
+        .ornament-content { font-size: 40px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+
+        /* --- Front Text Styles --- */
+        .front-text {
+            margin-top: 110px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .front-text h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+        
+        .front-text h1 {
+            font-family: 'Berkshire Swash', cursive;
+            font-size: 3rem;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 40px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        /* --- INSIDE LEFT --- */
+        .back-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            background-color: var(--card-color);
+            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+            border-radius: 5px 0 0 5px;
+            box-shadow: inset -5px 0 10px rgba(0,0,0,0.1);
+            z-index: 1;
+        }
+
+        /* --- MESSAGE AREA (Inside Right) --- */
+        .inside-base {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--card-color);
+            background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+            border-radius: 5px 12px 12px 5px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px; 
+            text-align: left;
+        }
+
+        .message-content {
+            width: 100%;
+            /* Removed overflow auto for desktop since we are making it fit */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Typography */
+        .message-title {
+            font-family: 'Berkshire Swash', cursive;
+            color: var(--red);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .message-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem; /* Slightly larger for desktop elegance */
+            color: #333;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-weight: 600;
+            text-align: right;
+            color: var(--red);
+            font-size: 1.2rem;
+        }
+
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media (max-width: 600px) {
+            :root {
+                --card-width: 90vw;
+                --card-height: 75vh;
+            }
+
+            .card-wrapper.open .card { transform: translateX(0); }
+            .inside-base { padding: 35px; }
+
+            /* Restore scrolling ability for mobile just in case */
+            .message-content {
+                display: block;
+                max-height: 100%;
+                overflow-y: auto;
+            }
+
+            .message-text { font-size: 1.05rem; line-height: 1.6; }
+            .message-title { font-size: 1.8rem; margin-bottom: 20px; }
+
+            .ornament-string { height: 80px; }
+            .ornament-ball { top: 80px; width: 70px; height: 70px; }
+            
+            .front-text { margin-top: 90px; } 
+            
+            .front-text h2 { 
+                font-size: 1.1rem; 
+            }
+            .front-text h1 { 
+                font-size: 3.2rem; 
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes swing {
+            0% { transform: translateX(-50%) rotate(5deg); }
+            50% { transform: translateX(-50%) rotate(-5deg); }
+            100% { transform: translateX(-50%) rotate(5deg); }
+        }
+
+        .snowflake {
+            position: absolute;
+            color: white;
+            animation: fall linear forwards;
+            top: -20px;
+        }
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="snow-container" id="snow-container"></div>
+
+    <div class="card-wrapper" id="card" onclick="toggleCard()">
+        <div class="card">
+            
+            <div class="front-flap">
+                <div class="front-face">
+                    <div class="fancy-border"></div>
+                    
+                    <div class="ornament-string"></div>
+                    <div class="ornament-ball">
+                        <div class="ornament-content">❄</div>
+                    </div>
+
+                    <div class="front-text">
+                        <h2>A Christmas Note</h2>
+                        <h1>For My Hanna</h1>
+                    </div>
+                    
+                    <div class="click-hint">Tap to Open</div>
+                </div>
+                
+                <div class="back-face">
+                    </div>
+            </div>
+
+            <div class="inside-base">
+                <div class="message-content">
+                    <h2 class="message-title">Merry Christmas, my Hanna!</h2>
+                    <p class="message-text">
+                        I just want to say na I’m really really grateful that I get to love you every single day and this alone is the greatest gift that I could receive in my whole life. I’m so glad na we met and we developed into something that we have now. 
+                        <br><br>
+                        Thank you for letting me be yours, be your boyfriend, and be there for you every single day.
+                        <br><br>
+                        To more Christmas holidays with you, my love! Can’t wait to see you sa 28 and celebrate the holidays with you, baby! I love you so much, mwaaa!
+                    </p>
+                    <div class="signature">- nj</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const cardWrapper = document.getElementById('card');
+        
+        function toggleCard() {
+            cardWrapper.classList.toggle('open');
+        }
+
+        function createSnow() {
+            const container = document.getElementById('snow-container');
+            const flake = document.createElement('div');
+            flake.classList.add('snowflake');
+            flake.innerHTML = '❄';
+            
+            flake.style.left = Math.random() * 100 + 'vw';
+            flake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            flake.style.opacity = Math.random() * 0.5 + 0.3;
+            flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            container.appendChild(flake);
+            
+            setTimeout(() => {
+                flake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnow, 100);
+    </script>
+</body>
+</html>
