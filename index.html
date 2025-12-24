@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Hanna Only</title>
+    <title>For Hanna</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            /* DESKTOP SETTINGS (Made larger to prevent scrolling) */
-            --card-width: 450px;  /* Increased from 380px */
-            --card-height: 620px; /* Increased from 580px */
+            /* Desktop Size */
+            --card-width: 450px;
+            --card-height: 620px;
             --card-color: #fdfaf5;
             --red: #8e0e00;
             --gold: #d4af37;
@@ -34,7 +34,7 @@
             background-image: radial-gradient(circle at center, #1f2a36 0%, #000000 100%);
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            perspective: 1500px;
+            perspective: 1200px; 
         }
 
         /* --- Snow --- */
@@ -55,7 +55,8 @@
             height: var(--card-height);
             cursor: pointer;
             z-index: 10;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-tap-highlight-color: transparent; 
         }
 
         @media (hover: hover) {
@@ -73,7 +74,7 @@
             transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- OPEN STATE --- */
+        /* --- OPEN STATE (DESKTOP) --- */
         .card-wrapper.open .card {
             transform: translateX(50%);
         }
@@ -110,13 +111,10 @@
             z-index: 2;
         }
 
-        /* The Gold Border Frame */
+        /* Gold Border */
         .fancy-border {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
             border: 2px solid var(--gold);
             border-radius: 4px;
             pointer-events: none;
@@ -130,43 +128,34 @@
         .fancy-border::before { top: -12px; left: -6px; }
         .fancy-border::after { bottom: -12px; right: -6px; transform: rotate(180deg); }
 
-        /* The Hanging Ornament */
+        /* Ornament */
         .ornament-string {
             position: absolute;
-            top: 0;
-            left: 50%;
-            width: 2px;
-            height: 120px;
+            top: 0; left: 50%;
+            width: 2px; height: 120px;
             background: var(--gold);
             transform: translateX(-50%);
         }
-
         .ornament-ball {
             position: absolute;
-            top: 120px;
-            left: 50%;
+            top: 120px; left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 80px;
+            width: 80px; height: 80px;
             background: radial-gradient(circle at 30% 30%, #ffd700, #b8860b);
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             animation: swing 3s infinite ease-in-out;
-            transform-origin: top center; 
-            margin-top: -10px; 
+            transform-origin: top center; margin-top: -10px; 
         }
         .ornament-content { font-size: 40px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
 
-        /* --- Front Text Styles --- */
+        /* Front Text */
         .front-text {
             margin-top: 110px;
             text-align: center;
             color: #fff;
         }
-        
         .front-text h2 {
             font-family: 'Poppins', sans-serif;
             font-weight: 300;
@@ -176,7 +165,6 @@
             margin-bottom: 5px;
             opacity: 0.9;
         }
-        
         .front-text h1 {
             font-family: 'Berkshire Swash', cursive;
             font-size: 3rem;
@@ -186,13 +174,10 @@
         }
 
         .click-hint {
-            position: absolute;
-            bottom: 40px;
+            position: absolute; bottom: 40px;
             font-family: 'Poppins', sans-serif;
-            font-weight: 400;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: rgba(255,255,255,0.8);
+            font-weight: 400; font-size: 0.8rem;
+            letter-spacing: 3px; color: rgba(255,255,255,0.8);
             text-transform: uppercase;
             animation: pulse 2s infinite;
         }
@@ -200,8 +185,7 @@
         /* --- INSIDE LEFT --- */
         .back-face {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             backface-visibility: hidden;
             transform: rotateY(180deg);
             background-color: var(--card-color);
@@ -211,36 +195,27 @@
             z-index: 1;
         }
 
-        /* --- MESSAGE AREA (Inside Right) --- */
+        /* --- INSIDE RIGHT (LETTER) --- */
         .inside-base {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-color: var(--card-color);
             background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
             border-radius: 5px 12px 12px 5px;
             box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
             z-index: 5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px; 
-            text-align: left;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 40px; text-align: left;
         }
 
         .message-content {
             width: 100%;
-            /* Removed overflow auto for desktop since we are making it fit */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            display: flex; flex-direction: column; justify-content: center;
             height: 100%;
         }
 
-        /* Typography */
         .message-title {
             font-family: 'Berkshire Swash', cursive;
             color: var(--red);
@@ -248,34 +223,34 @@
             margin-bottom: 25px;
             text-align: center;
         }
-
         .message-text {
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem; /* Slightly larger for desktop elegance */
-            color: #333;
-            line-height: 1.8;
+            font-size: 1rem;
+            color: #333; line-height: 1.8;
             font-weight: 400;
         }
-
         .signature {
             margin-top: 30px;
-            font-weight: 600;
-            text-align: right;
-            color: var(--red);
-            font-size: 1.2rem;
+            font-weight: 600; text-align: right;
+            color: var(--red); font-size: 1.2rem;
         }
 
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* --- MOBILE ADJUSTMENTS (UPDATED) --- */
         @media (max-width: 600px) {
             :root {
                 --card-width: 90vw;
                 --card-height: 75vh;
             }
 
-            .card-wrapper.open .card { transform: translateX(0); }
-            .inside-base { padding: 35px; }
+            /* UPDATED: Changed from 0.6 to 0.8 for a bigger view */
+            .card-wrapper.open {
+                transform: scale(0.8); 
+            }
 
-            /* Restore scrolling ability for mobile just in case */
+            .card-wrapper.open .card { 
+                transform: translateX(0); 
+            }
+
             .message-content {
                 display: block;
                 max-height: 100%;
@@ -289,20 +264,14 @@
             .ornament-ball { top: 80px; width: 70px; height: 70px; }
             
             .front-text { margin-top: 90px; } 
-            
-            .front-text h2 { 
-                font-size: 1.1rem; 
-            }
-            .front-text h1 { 
-                font-size: 3.2rem; 
-            }
+            .front-text h2 { font-size: 1.1rem; }
+            .front-text h1 { font-size: 3.2rem; }
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 0.5; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.05); }
         }
-
         @keyframes swing {
             0% { transform: translateX(-50%) rotate(5deg); }
             50% { transform: translateX(-50%) rotate(-5deg); }
@@ -310,21 +279,17 @@
         }
 
         .snowflake {
-            position: absolute;
-            color: white;
-            animation: fall linear forwards;
-            top: -20px;
+            position: absolute; color: white;
+            animation: fall linear forwards; top: -20px;
         }
-        @keyframes fall {
-            to { transform: translateY(105vh); }
-        }
+        @keyframes fall { to { transform: translateY(105vh); } }
     </style>
 </head>
 <body>
 
     <div class="snow-container" id="snow-container"></div>
 
-    <div class="card-wrapper" id="card" onclick="toggleCard()">
+    <div class="card-wrapper" id="card" onclick="toggleCard()" ontouchstart="">
         <div class="card">
             
             <div class="front-flap">
@@ -344,8 +309,7 @@
                     <div class="click-hint">Tap to Open</div>
                 </div>
                 
-                <div class="back-face">
-                    </div>
+                <div class="back-face"></div>
             </div>
 
             <div class="inside-base">
