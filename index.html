@@ -7,6 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -68,6 +69,7 @@
             transform-style: preserve-3d;
         }
 
+        /* --- DESKTOP ANIMATION (Slides right) --- */
         .card-wrapper.open {
             transform: translateX(50%);
         }
@@ -224,14 +226,16 @@
             color: var(--red); font-size: 1.2rem;
         }
 
+        /* --- MOBILE ADJUSTMENTS (NO MOVEMENT) --- */
         @media (max-width: 600px) {
             :root {
                 --card-width: 85vw;
                 --card-height: 70vh;
             }
 
+            /* FIX: Reset transform to NONE so it stays centered */
             .card-wrapper.open {
-                transform: translateX(10%); 
+                transform: none; 
             }
 
             .message-content {
