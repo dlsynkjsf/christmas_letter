@@ -7,7 +7,6 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -69,7 +68,6 @@
             transform-style: preserve-3d;
         }
 
-        /* --- DESKTOP ANIMATION (Slides right) --- */
         .card-wrapper.open {
             transform: translateX(50%);
         }
@@ -216,7 +214,7 @@
         }
         .message-text {
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #333; line-height: 1.8;
             font-weight: 400;
         }
@@ -226,14 +224,12 @@
             color: var(--red); font-size: 1.2rem;
         }
 
-        /* --- MOBILE ADJUSTMENTS (NO MOVEMENT) --- */
         @media (max-width: 600px) {
             :root {
                 --card-width: 85vw;
                 --card-height: 70vh;
             }
 
-            /* FIX: Reset transform to NONE so it stays centered */
             .card-wrapper.open {
                 transform: none; 
             }
@@ -244,7 +240,7 @@
                 overflow-y: auto;
             }
 
-            .message-text { font-size: 1.05rem; line-height: 1.6; }
+            .message-text { font-size: 0.9rem; line-height: 1.6; }
             .message-title { font-size: 1.8rem; margin-bottom: 20px; }
 
             .ornament-string { height: 80px; }
@@ -252,7 +248,7 @@
             
             .front-text { margin-top: 90px; } 
             .front-text h2 { font-size: 1.1rem; }
-            .front-text h1 { font-size: 3.2rem; }
+            .front-text h1 { font-size: 2.5rem; }
         }
 
         @keyframes pulse {
